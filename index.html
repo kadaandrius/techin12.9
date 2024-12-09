@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024.12.10</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #c70039;
+        }
+
+        .cursor-tree {
+            cursor: url('e50f79151563ef8a1af87c003285c46e-removebg-preview.png'), auto;
+        }
+
+        .cursor-snowflake {
+            cursor: url('692011-removebg-preview.png'), auto;
+        }
+
+        .cursor-trail {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-size: cover;
+            pointer-events: none;
+            animation: fade 10s forwards;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="cursor-tree">
+    <p>Move your cursor around to see the curser.</p>
+    <button id="toggle-cursor-btn">Change to Snowflake Cursor</button>
+
+    <script>
+        let currentCursor = 'tree';
+        const toggleCursorBtn = document.getElementById('toggle-cursor-btn');
+
+        const updateCursor = () => {
+            if (currentCursor === 'tree') {
+                document.body.classList.remove('cursor-tree');
+                document.body.classList.add('cursor-snowflake');
+                currentCursor = 'snowflake';
+                toggleCursorBtn.textContent = 'Change to Christmas Tree Cursor';
+            } else {
+                document.body.classList.remove('cursor-snowflake');
+                document.body.classList.add('cursor-tree');
+                currentCursor = 'tree';
+                toggleCursorBtn.textContent = 'Change to Snowflake Cursor';
+            }
+        };
+
+        toggleCursorBtn.addEventListener('click', updateCursor);
+
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = `${e.pageX}px`;
+            trail.style.top = `${e.pageY}px`;
+            
+            if (currentCursor === 'tree') {
+                trail.style.backgroundImage = "url('e50f79151563ef8a1af87c003285c46e-removebg-preview.png')";
+            } else {
+                trail.style.backgroundImage = "url('692011-removebg-preview.png')";
+            }
+
+            document.body.appendChild(trail);
+
+            setTimeout(() => {
+                trail.remove();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
